@@ -1,2 +1,3 @@
-# aoc_2022
-My contribution to Advent of Code 2022
+# Advent of Code 2022
+
+This is the repository of my contribution to [Advent of Code 2022](https://adventofcode.com/).
