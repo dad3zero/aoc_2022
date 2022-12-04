@@ -13,17 +13,18 @@ def update_top_packs(top_packs: list, new_value: int):
         top_packs.sort()
 
 
-current_pack = []
-top_carry = [0, 0, 0]
+if __name__ == "__main__":
+    current_pack = []
+    top_carry = [0, 0, 0]
 
-with open(src_file) as elves_input:
-    for line in elves_input:
-        if line.strip():
-            current_pack.append(int(line))
-        else:
-            carry = sum(current_pack)
-            current_pack = []
-            update_top_packs(top_carry, carry)
+    with open(src_file) as elves_input:
+        for line in elves_input:
+            if line.strip():
+                current_pack.append(int(line))
+            else:
+                carry = sum(current_pack)
+                current_pack = []
+                update_top_packs(top_carry, carry)
 
-print("Max value:", top_carry[-1])
-print("Top 3:", top_carry, sum(top_carry))
+    print("Max value:", top_carry[-1])
+    print("Top 3:", top_carry, sum(top_carry))

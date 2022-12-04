@@ -14,22 +14,22 @@ shape_scores = {"R": 1,
 values = {"A":"R", "B":"P", "C":"S",
           "Y":"D", "X":"L", "Z":"W"}
 
+if __name__ == "__main__":
+    total_score = 0
 
-total_score = 0
+    with open(src_file) as game_input:
+        for line in game_input:
+            other, target = line.strip().split()
 
-with open(src_file) as game_input:
-    for line in game_input:
-        other, target = line.strip().split()
+            other = values[other]
+            target = values[target]
 
-        other = values[other]
-        target = values[target]
+            shape_to_do, draw_score = target_values[other][target]
 
-        shape_to_do, draw_score = target_values[other][target]
+            shape_score = shape_scores[shape_to_do]
 
-        shape_score = shape_scores[shape_to_do]
+            round_score = shape_score + draw_score
 
-        round_score = shape_score + draw_score
+            total_score += round_score
 
-        total_score += round_score
-
-print(total_score)
+    print(total_score)

@@ -51,6 +51,6 @@ if __name__ == "__main__":
                 group.clear()
 
                 total_value += value
-print(total_value)
+    print(total_value)
 
 
