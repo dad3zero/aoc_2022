@@ -1,4 +1,6 @@
 
+from utils import io
+
 src_file = "input.txt"
 
 target_values = {
@@ -17,19 +19,19 @@ values = {"A":"R", "B":"P", "C":"S",
 if __name__ == "__main__":
     total_score = 0
 
-    with open(src_file) as game_input:
-        for line in game_input:
-            other, target = line.strip().split()
 
-            other = values[other]
-            target = values[target]
+    for line in io.load_game_input(src_file):
+        other, target = line.split()
 
-            shape_to_do, draw_score = target_values[other][target]
+        other = values[other]
+        target = values[target]
 
-            shape_score = shape_scores[shape_to_do]
+        shape_to_do, draw_score = target_values[other][target]
 
-            round_score = shape_score + draw_score
+        shape_score = shape_scores[shape_to_do]
 
-            total_score += round_score
+        round_score = shape_score + draw_score
+
+        total_score += round_score
 
     print(total_score)

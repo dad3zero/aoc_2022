@@ -1,4 +1,6 @@
 
+from utils import io
+
 src_file = "input.txt"
 
 def badge_name(stack1, stack2, stack3):
@@ -25,32 +27,27 @@ def item_value(item):
 
 if __name__ == "__main__":
     total_value = 0
-    with open(src_file) as game_input:
-        for line in game_input:
-            items = line.strip()
-            comp1, comp2 = items[:len(items)//2], items[len(items)//2:]
+    for items in io.load_game_input(src_file):
+        comp1, comp2 = items[:len(items)//2], items[len(items)//2:]
 
-            item = common_item(comp1, comp2)
-            value = item_value(item)
+        item = common_item(comp1, comp2)
+        value = item_value(item)
 
-            total_value += value
+        total_value += value
 
     print(total_value)
 
-    with open(src_file) as game_input:
+    group = []
+    total_value = 0
+    for items in io.load_game_input(src_file):
+        group.append(items)
 
-        group = []
-        total_value = 0
-        for line in game_input:
-            items = line.strip()
-            group.append(items)
+        if len(group) == 3:
+            item = badge_name(*group)
+            value = item_value(item)
+            group.clear()
 
-            if len(group) == 3:
-                item = badge_name(*group)
-                value = item_value(item)
-                group.clear()
-
-                total_value += value
+            total_value += value
     print(total_value)
 
 

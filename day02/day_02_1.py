@@ -1,4 +1,6 @@
 
+from utils import io
+
 src_file = "input.txt"
 
 result_scores = {  # The key is my shape and the returned dictionary returns the score for the opponent shape.
@@ -18,18 +20,17 @@ values = {"A":"R", "B":"P", "C":"S",  # Those are the corresponding shapes for e
 if __name__ == "__main__":
     total_score = 0
 
-    with open(src_file) as game_input:
-        for line in game_input:
-            opponent_shape, my_shape = line.strip().split()
+    for line in io.load_game_input(src_file):
+        opponent_shape, my_shape = line.split()
 
-            my_shape = values[my_shape]
-            opponent_shape = values[opponent_shape]
+        my_shape = values[my_shape]
+        opponent_shape = values[opponent_shape]
 
 
-            shape_score = shape_scores[my_shape]
-            round_result = result_scores[my_shape][opponent_shape]
+        shape_score = shape_scores[my_shape]
+        round_result = result_scores[my_shape][opponent_shape]
 
-            total_score += shape_score + round_result
+        total_score += shape_score + round_result
 
     print(total_score)
 

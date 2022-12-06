@@ -1,3 +1,5 @@
+
+from utils import io
 src_file = "input.txt"
 
 def get_section_values(section:str):
@@ -16,18 +18,16 @@ def is_ovelapping(section1, section2):
     return not s1.isdisjoint(s2)
 
 if __name__ == "__main__":
-    with open(src_file) as game_input:
-        total_overlap = 0
-        total_contained = 0
-        for line in game_input:
-            section1, section2 = line.strip().split(',')
+    total_overlap = 0
+    total_contained = 0
+    for line in io.load_game_input(src_file):
+        section1, section2 = line.split(',')
 
-            sec1_values = get_section_values(section1)
-            sec2_values = get_section_values(section2)
+        sec1_values = get_section_values(section1)
+        sec2_values = get_section_values(section2)
 
-            total_contained += is_contained(sec1_values, sec2_values)
-            total_overlap += is_ovelapping(sec1_values, sec2_values)
-            print()
+        total_contained += is_contained(sec1_values, sec2_values)
+        total_overlap += is_ovelapping(sec1_values, sec2_values)
 
     print(total_contained)
     print(total_overlap)

@@ -1,5 +1,7 @@
 import re
 
+from utils import io
+
 pattern = "move (?P<how_many>[0-9]+) from (?P<from>[0-9]) to (?P<to>[0-9])"
 
 src_file = "input.txt"
@@ -7,9 +9,10 @@ src_file = "input.txt"
 def setup_stacks(input_file):
     docks = []
     for line in input_file:
-        if not line.strip():
+        if not line:
             break
         docks.append(line[1::4])
+        print(docks)
 
     stacks = [[] for _ in range(len(docks.pop()))]
     docks.reverse()
@@ -40,18 +43,20 @@ def move_crate_9001(docks: list, from_stack: int, to_stack: int, how_many: int =
     docks[from_stack] = docks[from_stack][:-how_many]
 
 
-stacks = []
 
 if __name__ == "__main__":
-    with open(src_file) as game_input:
-        docks = setup_stacks(game_input)
+    stacks = []
 
-        for line in game_input:
-            if result := re.search(pattern, line):
-                how_many, from_stack, to_stack = result.groups()
-                move_crate_9001(docks, from_stack, to_stack, how_many)
-            else:
-                print(f"Line cannot be parsed : {line}")
+    input_reader = io.load_game_input(src_file)
+
+    docks = setup_stacks(input_reader)
+
+    for line in input_reader:
+        if result := re.search(pattern, line):
+            how_many, from_stack, to_stack = result.groups()
+            move_crate_9001(docks, from_stack, to_stack, how_many)
+        else:
+            print(f"Line cannot be parsed : {line}")
 
     for stack in docks[1:]:
         print(stack[-1], end="")
