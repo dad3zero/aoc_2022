@@ -14,13 +14,13 @@ class DirElement:
 
     def get_dirs(self, name):
         if not self.is_dir():
-            raise NotImplementedError(f"Cannot perform such action for non dir {self}")
+            raise NotImplementedError(f"Cannot perform such action for non dir {self!r}")
 
         return [element for element in self._content if element.is_dir()]
 
     def get_dir(self, name):
         if not self.is_dir():
-            raise NotImplementedError(f"Cannot perform such action for non dir {self}")
+            raise NotImplementedError(f"Cannot perform such action for non dir {self!r}")
 
         for dir_element in self._content:
             if dir_element.is_dir() and dir_element.name == name:
@@ -51,13 +51,13 @@ class DirElement:
 
     def add_element(self, element):
         if self.is_file():
-            raise ValueError(f'{self} cannot add {element}' )
+            raise ValueError(f'{self!r} cannot add {element}' )
 
         self._content.append(element)
         element.update_parent(self)
 
     def __str__(self):
-        return f"Element [{'dir' if self.is_dir() else 'file'}] '{self.name}'"
+        return f"Element [{'dir' if self.is_dir() else 'file'}] {self.name!r}"
 
 def parse_dir_output(dir_content:list, root_dir:DirElement):
     for content_description in dir_content:
